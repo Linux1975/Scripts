@@ -1,26 +1,5 @@
-./healthcheck.sh: line 47: [: ==: unary operator expected
-+ echo 'Container is unhealthy'
-Container is unhealthy
-+ ERRCNT=0
-++ grep -c ntpd
-++ grep -v grep
-++ ps -ef
-+ run=1
-+ '[' 1 -eq 0 ']'
-+ '[' 1 -gt 1 ']'
-./healthcheck.sh: line 100: unexpected EOF while looking for matching ``'
-./healthcheck.sh: line 125: syntax error: unexpected end of file
-[root@ip-172-31-27-87 ~]#
-[root@ip-172-31-27-87 ~]#
-[root@ip-172-31-27-87 ~]# vim healthcheck.sh
--bash: vim: command not found
-[root@ip-172-31-27-87 ~]# vi healthcheck.sh
-[root@ip-172-31-27-87 ~]#
-[root@ip-172-31-27-87 ~]# ./healthcheck.sh
-+ NTP=169.254.169.123
-+ MAXDELAY=1
 #!/bin/bash
-set -x
+
 
 # NTP is the server used to syncronize the time in AWS is 169.254.169.123
 # MAXDELAY is the maximum time offset chosen, it is in seconds
