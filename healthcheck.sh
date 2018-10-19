@@ -6,8 +6,8 @@ set -x
 # RECIPIENT is the email address to send notifications
 # HOST is the server hostname 
 # SUBJECT is the subject when the notification arrive 
-#DOCKER_CMD we use this command because in the Docker file we have configured this command " HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1"
-#when we run docker ps we can check if the webserver is healthy or not
+# DOCKER_CMD we use this command because in the Docker file we have configured this command " HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1"
+# when we run docker ps we can check if the webserver is healthy or not
 
 # Here we can configure variables
 NTP=169.254.169.123
@@ -29,7 +29,7 @@ offset=0
 DATE=$(date)
 
 
-# we move in the path of execution
+# We move to the path of execution
 cd /var/script
 
 echo "From: gianluca.villani@gmail.com" > /var/log/ntp.log
@@ -42,7 +42,7 @@ echo "" >> /var/log/ntp.log
 echo "" >> /var/log/ntp.log
 
 
-#check if the container is healthy or not
+# Check if the container is healthy or not
 
 if [ $docker_cmd == "healthy" ]
   then
@@ -52,7 +52,7 @@ if [ $docker_cmd == "healthy" ]
 
 fi
 
-# check if the ntpd is running, if it is not correct I increase the counter and I log the error
+# Check if the ntpd is running, if it is not correct I increase the counter and I log the error
 ERRCNT=0
 run=`ps -ef |grep -v grep |grep -c ntpd`
 if [ $run -eq 0 ] || [ $run -gt 1 ]
@@ -61,7 +61,7 @@ if [ $run -eq 0 ] || [ $run -gt 1 ]
         ERRCNT=`expr $ERRCNT + 1`
 fi
 
-# check if the runlevel is ok , if it is not correct I increase the counter and I log the error
+# Check if the runlevel is ok , if it is not correct I increase the counter and I log the error
 
 runlvl=$(/sbin/chkconfig --list ntpd | grep '3:on' | grep -c '5:on'`)
 runlvlv=$(/sbin/chkconfig --list ntpd)
@@ -73,7 +73,7 @@ if [ $runlvl -eq 0 ]
         ERRCNT=`expr $ERRCNT + 1`
 fi
 
-# check if the NTP server is available, if it is not correct I increase the counter and I log the error
+# Check if the NTP server is available, if it is not correct I increase the counter and I log the error
 
 /usr/sbin/ntpdate -q $NTP > /var/script/ntpdate.log
 /usr/sbin/ntpdate -q $NTP
@@ -87,7 +87,7 @@ if [ $offline -eq 1 ]
 fi
 
 
-# check that the offset is not greater than the chosen value ,if it is not correct I increase the counter and I log the error
+# Check that the offset is not greater than the chosen value ,if it is not correct I increase the counter and I log the error
 
 i=1
 roffset=$(cat /var/script/ntpdate.log |awk '{print $6}'|awk '{if ( FNR=='$i' ) {print $0}}')
@@ -111,11 +111,11 @@ if [ $ERRCNT -gt 0 ]
 fi
 
 
-# clean up of the logs
+# Clean up of the logs
 echo "" > /var/log/ntp.log
 echo "" > /var/script/ntpdate.log
 
-# I reset variables 
+# Reset variables 
 runlvl=1
 runlvlv=""
 run=1
