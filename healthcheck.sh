@@ -30,7 +30,7 @@ DATE=$(date)
 
 
 # we move in the path of execution
-cd /var/script
+cd /var/log
 
 echo "From: gianluca.villani@gmail.com" > /var/log/ntp.log
 echo "To: $RECIPIENT" >> /var/log/ntp.log
@@ -44,7 +44,7 @@ echo "" >> /var/log/ntp.log
 
 #check if the container is healthy or not
 
-if [ $docker_cmd == "healthy" ]
+if [ $DOCKER_CMD == "healthy" ]
   then
   echo "Container is healthy"
   else
@@ -64,7 +64,7 @@ fi
 
 # check if the runlevel is ok , if it is not correct I increase the counter and I log the error
 
-runlvl=$(/sbin/chkconfig --list ntpd | grep '3:on' | grep -c '5:on'`)
+runlvl=$(/sbin/chkconfig --list ntpd | grep '3:on' | grep -c '5:on')
 runlvlv=$(/sbin/chkconfig --list ntpd)
 if [ $runlvl -eq 0 ]
         then
