@@ -6,13 +6,13 @@
 # RECIPIENT is the email address to send notifications
 # HOST is the server hostname
 # SUBJECT is the subject when the notification arrive
-#DOCKER_CMD we use this command because in the Docker file we have configured this command " HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1"
-#when we run docker ps we can check if the webserver is healthy or not
+# DOCKER_CMD we use this command because in the Docker file we have configured this command " HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1"
+# when we run docker ps we can check if the webserver is healthy or not
 
 # Here we can configure variables
 NTP=169.254.169.123
 MAXDELAY=1
-RECIPIENT="gianluca.villani@gmail.com"
+RECIPIENT="name.lastname@gmail.com"
 DOCKER_CMD=$(docker ps |grep "(healthy)" |awk '{print $11}'| cut -d ')' -f 1 - | cut -d '(' -f 2 -)
 
 # Leave them as they are
@@ -32,7 +32,7 @@ DATE=$(date)
 # we move in the path of execution
 cd /var/log
 
-echo "From: name.lastname@gmail.com" > /var/log/ntp.log
+echo "From: alarm" > /var/log/ntp.log
 echo "To: $RECIPIENT" >> /var/log/ntp.log
 echo "Subject: $SUBJECT" >> /var/log/ntp.log
 echo "" >> /var/log/ntp.log
