@@ -32,7 +32,7 @@ DATE=$(date)
 # we move in the path of execution
 cd /var/log
 
-echo "From: gianluca.villani@gmail.com" > /var/log/ntp.log
+echo "From: name.lastname@gmail.com" > /var/log/ntp.log
 echo "To: $RECIPIENT" >> /var/log/ntp.log
 echo "Subject: $SUBJECT" >> /var/log/ntp.log
 echo "" >> /var/log/ntp.log
